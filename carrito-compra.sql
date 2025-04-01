@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS carritoCompraDB;
+CREATE DATABASE IF NOT EXISTS carritoCompraDB;
+USE carritoCompraDB;
+
