@@ -27,8 +27,10 @@ CREATE TABLE cliente (
   estado TINYINT NOT NULL DEFAULT(1),
   PRIMARY KEY(id_cliente)
 );
+```
 </details> <details> <summary>🗂️ Categoría</summary>
 
+```sql
 CREATE TABLE categoria (
   id_categoria INT UNSIGNED NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(25) NOT NULL,
@@ -36,7 +38,8 @@ CREATE TABLE categoria (
   PRIMARY KEY(id_categoria)
 );
 </details> <details> <summary>📦 Producto</summary>
-
+```
+```sql
 CREATE TABLE producto (
   id_producto INT UNSIGNED NOT NULL AUTO_INCREMENT,
   sku VARCHAR(15) NOT NULL UNIQUE,
@@ -48,8 +51,10 @@ CREATE TABLE producto (
   PRIMARY KEY(id_producto),
   FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria)
 );
+```
 </details> <details> <summary>🏪 Inventario</summary>
-
+  
+```sql
 CREATE TABLE inventario (
   id_inventario INT UNSIGNED NOT NULL AUTO_INCREMENT,
   id_producto INT UNSIGNED NOT NULL,
@@ -60,8 +65,10 @@ CREATE TABLE inventario (
   PRIMARY KEY(id_inventario),
   FOREIGN KEY(id_producto) REFERENCES producto(id_producto)
 );
+  ```
 </details> <details> <summary>🧾 Encabezado de Factura</summary>
 
+```sql
 CREATE TABLE encabezado_factura (
   id_encabezado_factura BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   id_cliente INT UNSIGNED NOT NULL,
@@ -74,8 +81,10 @@ CREATE TABLE encabezado_factura (
   PRIMARY KEY(id_encabezado_factura),
   FOREIGN KEY(id_cliente) REFERENCES cliente(id_cliente)
 );
+```
 </details> <details> <summary>🧮 Detalle de Factura</summary>
 
+```sql
 CREATE TABLE detalle_factura (
   id_detalle_factura BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   id_encabezado_factura BIGINT UNSIGNED NOT NULL,
@@ -88,14 +97,11 @@ CREATE TABLE detalle_factura (
   FOREIGN KEY(id_encabezado_factura) REFERENCES encabezado_factura(id_encabezado_factura),
   FOREIGN KEY(id_producto) REFERENCES producto(id_producto)
 );
-</details>
 ```
 ## 📌 Índices
-
 CREATE UNIQUE INDEX idx_cliente_email ON cliente(email);
 
 ## 🚀 Inicio Rápido
-
 DROP DATABASE IF EXISTS carritoCompraDB;
 CREATE DATABASE IF NOT EXISTS carritoCompraDB;
 USE carritoCompraDB;
