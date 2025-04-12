@@ -1,4 +1,4 @@
-# 🛒 Base de Datos - Sistema de Carrito de Compras UMG 🧠🔴
+# 🛒 Base de Datos - Carrito de Compras UMG 🧠🔴
 
 Este proyecto define la estructura de una base de datos relacional para un sistema de carrito de compras. Diseñado con MySQL, incluye tablas bien normalizadas para clientes, productos, facturación e inventario.
 
@@ -99,6 +99,8 @@ CREATE TABLE detalle_factura (
   FOREIGN KEY(id_producto) REFERENCES producto(id_producto)
 );
 ```
+</details>
+
 ## 📌 Índices
 CREATE UNIQUE INDEX idx_cliente_email ON cliente(email);
 
