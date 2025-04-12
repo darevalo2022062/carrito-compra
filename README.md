@@ -9,10 +9,13 @@ Este proyecto define la estructura de una base de datos relacional para un siste
 
 ## 🧱 Estructura de la Base de Datos
 
+### Diagram EDR
+![Texto alternativo](carrito-compra.png)
+
 La base de datos se llama `carritoCompraDB` y contiene las siguientes tablas:
 
 <details>
-<summary>🧍‍♂️ Details</summary>
+<summary>🧍‍♂️ Client</summary>
 
 ```sql
 CREATE TABLE cliente (
