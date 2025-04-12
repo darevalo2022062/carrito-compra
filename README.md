@@ -4,11 +4,8 @@ Este proyecto define la estructura de una base de datos relacional para un siste
 
 ---
 
-## 📊 Estadísticas Visuales (Mock Data)
 
-Aquí tienes algunos gráficos representativos basados en datos simulados para una vista previa del análisis que podrías realizar con esta base de datos.
 
----
 
 ## 🧱 Estructura de la Base de Datos
 
