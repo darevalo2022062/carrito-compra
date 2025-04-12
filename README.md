@@ -1,27 +1,14 @@
-markdown
-Copy
-# 🛒 Base de Datos para E-Commerce - Carrito de Compras
+# 🛍️ Base de Datos para E-Commerce - Carrito de Compras
 
-## 📚 Estructura de la Base de Datos
+## 📚 Estructura Completa en SQL
 
 ```sql
--- ✨ Creación de la base de datos
+-- ✨ CREACIÓN DE LA BASE DE DATOS
 DROP DATABASE IF EXISTS carritoCompraDB;
 CREATE DATABASE IF NOT EXISTS carritoCompraDB;
 USE carritoCompraDB;
-🔍 Diagrama Entidad-Relación
-mermaid
-Copy
-erDiagram
-    CLIENTE ||--o{ FACTURA : "realiza"
-    FACTURA ||--|{ DETALLE_FACTURA : "contiene"
-    PRODUCTO ||--o{ DETALLE_FACTURA : "incluido_en"
-    CATEGORIA ||--o{ PRODUCTO : "clasifica"
-    PRODUCTO ||--o{ INVENTARIO : "stock"
-📦 Tablas Principales
-👥 Clientes
-sql
-Copy
+
+-- 👥 TABLA CLIENTES
 CREATE TABLE cliente(
     id_cliente INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
@@ -31,18 +18,16 @@ CREATE TABLE cliente(
     estado TINYINT NOT NULL DEFAULT(1),
     PRIMARY KEY(id_cliente)
 );
-🏷 Categorías
-sql
-Copy
+
+-- 🏷️ TABLA CATEGORÍAS
 CREATE TABLE categoria(
     id_categoria INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(25) NOT NULL,
     estado TINYINT NOT NULL DEFAULT(1),
     PRIMARY KEY(id_categoria)
 );
-🛍️ Productos
-sql
-Copy
+
+-- 🛒 TABLA PRODUCTOS
 CREATE TABLE producto(
     id_producto INT UNSIGNED NOT NULL AUTO_INCREMENT,
     sku VARCHAR(15) NOT NULL UNIQUE,
@@ -54,9 +39,8 @@ CREATE TABLE producto(
     PRIMARY KEY (id_producto),
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
-📊 Sistema de Inventario
-sql
-Copy
+
+-- 📦 TABLA INVENTARIO
 CREATE TABLE inventario(
     id_inventario INT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_producto INT UNSIGNED NOT NULL,
@@ -67,10 +51,8 @@ CREATE TABLE inventario(
     PRIMARY KEY (id_inventario),
     FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 );
-💰 Módulo de Facturación
-🧾 Encabezado Factura
-sql
-Copy
+
+-- 🧾 TABLA FACTURAS
 CREATE TABLE encabezado_factura(
     id_encabezado_factura BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_cliente INT UNSIGNED NOT NULL,
@@ -83,9 +65,8 @@ CREATE TABLE encabezado_factura(
     PRIMARY KEY(id_encabezado_factura),
     FOREIGN KEY(id_cliente) REFERENCES cliente(id_cliente)
 );
-📝 Detalle Factura
-sql
-Copy
+
+-- 📝 TABLA DETALLE FACTURAS
 CREATE TABLE detalle_factura(
     id_detalle_factura BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_encabezado_factura BIGINT UNSIGNED NOT NULL,
@@ -98,24 +79,38 @@ CREATE TABLE detalle_factura(
     FOREIGN KEY (id_encabezado_factura) REFERENCES encabezado_factura(id_encabezado_factura),
     FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 );
-🔍 Índices Optimizados
-sql
-Copy
+
+-- 🔍 ÍNDICE PARA BÚSQUEDAS RÁPIDAS
 CREATE UNIQUE INDEX idx_cliente_email ON cliente(email);
-🎨 Estilo Visual
-Componente	Color	Icono
-Clientes	#FF6B6B	👥
-Productos	#4ECDC4	🛍️
-Facturas	#FFD166	🧾
-Inventario	#51E898	📊
-💡 Ejemplo de Consulta
-sql
-Copy
--- Obtener productos más vendidos
-SELECT p.nombre, SUM(df.cantidad) AS total_vendido
+
+erDiagram
+    CLIENTE ||--o{ ENCABEZADO_FACTURA : "realiza"
+    ENCABEZADO_FACTURA ||--|{ DETALLE_FACTURA : "contiene"
+    PRODUCTO ||--o{ DETALLE_FACTURA : "incluido_en"
+    CATEGORIA ||--o{ PRODUCTO : "clasifica"
+    PRODUCTO ||--o{ INVENTARIO : "stock"
+
+
+💡 Ejemplo de Consultas Útiles
+-- 🏆 TOP 5 PRODUCTOS MÁS VENDIDOS
+SELECT p.nombre, SUM(df.cantidad) AS unidades_vendidas
 FROM producto p
 JOIN detalle_factura df ON p.id_producto = df.id_producto
 GROUP BY p.id_producto
-ORDER BY total_vendido DESC
+ORDER BY unidades_vendidas DESC
 LIMIT 5;
-💡 Tip: Esta estructura permite fácil integración con sistemas de pago y logística
+
+-- 📅 VENTAS POR MES
+SELECT 
+    DATE_FORMAT(f.fecha_emision, '%Y-%m') AS mes,
+    SUM(f.total) AS ventas_totales
+FROM encabezado_factura f
+WHERE f.estado = 'PAGADA'
+GROUP BY mes
+ORDER BY mes;
+
+-- 🔔 PRODUCTOS CON STOCK BAJO
+SELECT p.nombre, i.cantidad
+FROM producto p
+JOIN inventario i ON p.id_producto = i.id_producto
+WHERE i.cantidad < 10 AND p.estado = 1;
