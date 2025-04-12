@@ -37,8 +37,9 @@ CREATE TABLE categoria (
   estado TINYINT NOT NULL DEFAULT(1),
   PRIMARY KEY(id_categoria)
 );
-</details> <details> <summary>📦 Producto</summary>
 ```
+</details> <details> <summary>📦 Producto</summary>
+
 ```sql
 CREATE TABLE producto (
   id_producto INT UNSIGNED NOT NULL AUTO_INCREMENT,
