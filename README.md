@@ -8,22 +8,6 @@ Este proyecto define la estructura de una base de datos relacional para un siste
 
 Aquí tienes algunos gráficos representativos basados en datos simulados para una vista previa del análisis que podrías realizar con esta base de datos.
 
-### 🎯 Productos por Categoría
-
-![Productos por categoría](https://quickchart.io/chart?c={type:'pie',data:{labels:['Electrónica','Hogar','Ropa','Libros'],datasets:[{data:[20,15,30,10]}]},options:{plugins:{legend:{position:'bottom'}}}})
-
----
-
-### 📈 Facturas por Estado
-
-![Facturas por Estado](https://quickchart.io/chart?c={type:'bar',data:{labels:['PAGADA','ANULADA','PENDIENTE'],datasets:[{label:'Facturas',data:[12,3,8],backgroundColor:['#4CAF50','#F44336','#FFC107']}]},options:{scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}})
-
----
-
-### 📦 Inventario por Producto
-
-![Inventario](https://quickchart.io/chart?c={type:'line',data:{labels:['Producto A','Producto B','Producto C','Producto D'],datasets:[{label:'Unidades en stock',data:[50,20,75,10],fill:false,borderColor:'blue'}]},options:{scales:{y:{beginAtZero:true}}}})
-
 ---
 
 ## 🧱 Estructura de la Base de Datos
@@ -31,7 +15,7 @@ Aquí tienes algunos gráficos representativos basados en datos simulados para u
 La base de datos se llama `carritoCompraDB` y contiene las siguientes tablas:
 
 <details>
-<summary>🧍‍♂️ Cliente</summary>
+<summary>🧍‍♂️ Details</summary>
 
 ```sql
 CREATE TABLE cliente (
